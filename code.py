@@ -67,3 +67,5 @@ cv2.destroyAllWindows()
 #NATTANAN VIMUKTANAN M.205 No.1
 #KRITTAPHAT TRAKULTHONGCHAROEN M.205 No. 12
 #THITIKAN SINPRASONG M.205 No. 15
+
+#wall thermite recipe not found 404
