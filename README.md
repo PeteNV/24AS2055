@@ -36,4 +36,4 @@ Thanks to Mr. Trust B. and Mr. Raborar for providing mental support that powers 
 
 
 # Contact
-[]
+If you have any questions or feedback, feel free to contact us at PeteNV #5209 on Discord.
