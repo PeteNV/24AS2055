@@ -21,7 +21,7 @@ Experimenting on the Accuracy of an Image Recognition System if is in a Camera, 
 []
 
 # Usage
-[]
+Simply run the screensaver.py script, and the screensaver will start displaying the transition between the two ASCII images when your computer is idle. To stop the screensaver, move the mouse or press any key.
 
 # Features
 []
