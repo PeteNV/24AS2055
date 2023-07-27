@@ -4,6 +4,16 @@ import json
 from linebot import LineBotApi
 from linebot.models import ImageMessage, TextSendMessage
 
+# Function to upload the image to Imgur and get the URL
+def upload_image_to_imgur(image_path, client_id):
+    url = "https://api.imgur.com/3/upload"
+    headers = {"Authorization": f"Client-ID {client_id}"}
+    files = {"image": open(image_path, "rb")}
+    response = requests.post(url, headers=headers, files=files)
+    data = json.loads(response.text)
+    if response.status_code == 200 and data["success"]:
+        return data["data"]["link"]
+    return None
 
 # Function to detect black color using Imagga's Color Extraction API
 def detect_black_color(image_url, api_key, api_secret):
@@ -16,27 +26,27 @@ def detect_black_color(image_url, api_key, api_secret):
             return True
     return False
 
-
 # Function to send the captured image to Line
-def send_image_to_line(image_path):
+def send_image_to_line(image_url):
     # Upload the image to Line server and get the media ID
-    image_message = ImageMessage(original_content_url=image_path, preview_image_url=image_path)
+    image_message = ImageMessage(original_content_url=image_url, preview_image_url=image_url)
     response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)
 
     # Check if the message was successfully sent
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
 
-
 # Set up the Line Bot API
-line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp"
-                          "+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
+line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
 
 # Initialize the video capture object to access the live camera feed
 video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
 
 # Previous frame for motion detection
 prev_frame = None
+
+# Imgur API Client ID (Replace with your Imgur API client ID)
+IMGUR_CLIENT_ID = "YOUR_IMGUR_CLIENT_ID"
 
 # Main detection loop
 while True:
@@ -69,19 +79,21 @@ while True:
         # Convert the frame to a URL-accessible image
         image_path = "frame.jpg"
         cv2.imwrite(image_path, frame)
-        image_url = "file://" + image_path
 
-        # Detect black color in the captured frame
-        suspicious_person_detected = detect_black_color(image_url, "U0374fd264aeadd7f483dff6ed8e568e7", 
-                                                        "938370bda72e3cc671c3f293242ce75b")
+        # Upload the image to Imgur and get the URL
+        image_url = upload_image_to_imgur(image_path, IMGUR_CLIENT_ID)
 
-        # Display the frame with a bounding box around the suspicious person
-        if suspicious_person_detected:
-            # Draw a red rectangle around the suspicious person
-            cv2.rectangle(frame, (0, 0), (frame.shape[1], frame.shape[0]), (0, 0, 255), 3)
+        if image_url:
+            # Detect black color in the captured frame
+            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866", "938370bda72e3cc671c3f293242ce75b")
 
-            # Send the captured image to Line
-            send_image_to_line(image_path)
+            # Display the frame with a bounding box around the suspicious person
+            if suspicious_person_detected:
+                # Draw a red rectangle around the suspicious person
+                cv2.rectangle(frame, (0, 0), (frame.shape[1], frame.shape[0]), (0, 0, 255), 3)
+
+                # Send the captured image to Line
+                send_image_to_line(image_url)
 
     # Display the resulting frame
     cv2.imshow('Suspicious Person Detection', frame)
@@ -94,7 +106,7 @@ while True:
 video_capture.release()
 cv2.destroyAllWindows()
 
-# THIS CODE IS THE PROPERTY OF THE BERMUDA TRIANGLE
+# THIS CODE IS THE PROPERTY OF THE BERMUDA TIRED-ANGLE
 # NATTANAN VIMUKTANAN M.205 NO.1
-# KRITTAPHAT TRAKULHTONGCHAROEN M.205 NO.12
+# KRITTAPHAT TRAKULTHONGCHAROEN M.205 NO.12
 # THITIKAN SINPRASONG M.205 NO.15
