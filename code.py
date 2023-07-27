@@ -21,7 +21,7 @@ def detect_black_color(image_url, api_key, api_secret):
 def send_image_to_line(image_path):
     # Upload the image to Line server and get the media ID
     image_message = ImageMessage(original_content_url=image_path, preview_image_url=image_path)
-    response = line_bot_api.push_message(YOUR_LINE_USER_ID, image_message)
+    response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)
 
     # Check if the message was successfully sent
     if '200' not in str(response.status_code):
@@ -29,7 +29,8 @@ def send_image_to_line(image_path):
 
 
 # Set up the Line Bot API
-line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
+line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp"
+                          "+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
 
 # Initialize the video capture object to access the live camera feed
 video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
@@ -71,7 +72,8 @@ while True:
         image_url = "file://" + image_path
 
         # Detect black color in the captured frame
-        suspicious_person_detected = detect_black_color(image_url, YOUR_API_KEY, YOUR_API_SECRET)
+        suspicious_person_detected = detect_black_color(image_url, "U0374fd264aeadd7f483dff6ed8e568e7", 
+                                                        "938370bda72e3cc671c3f293242ce75b")
 
         # Display the frame with a bounding box around the suspicious person
         if suspicious_person_detected:
@@ -96,5 +98,3 @@ cv2.destroyAllWindows()
 # NATTANAN VIMUKTANAN M.205 NO.1
 # KRITTAPHAT TRAKULHTONGCHAROEN M.205 NO.12
 # THITIKAN SINPRASONG M.205 NO.15
-
-# PLEASE USE THE SOFTWARE RESPONSIBLY
