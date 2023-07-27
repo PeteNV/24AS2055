@@ -1,7 +1,10 @@
 # 24AS2055
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
+
+# Description
 Welcome to 24AS2055.
 This repository is the property of the "Bermuda Triangle".
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
+
 # Project Name
 Experimenting on the Accuracy of an Image Recognition System if is in a Camera, using Line-Bot Application and Python.
 
