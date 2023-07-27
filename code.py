@@ -1,6 +1,7 @@
 import cv2
 import requests
 import json
+import time
 from linebot import LineBotApi
 from linebot.models import ImageMessage, TextSendMessage
 
@@ -98,6 +99,11 @@ while True:
     # Display the resulting frame
     cv2.imshow('Suspicious Person Detection', frame)
 
+    # Add a small delay to limit the frequency of frame capturing
+    # Adjust the delay time as needed (e.g., 0.1 seconds)
+    # This will reduce the CPU usage and the rapid capturing of frames
+    time.sleep(0.1)
+
     # Exit the loop if 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
@@ -107,6 +113,6 @@ video_capture.release()
 cv2.destroyAllWindows()
 
 # THIS CODE IS THE PROPERTY OF THE BERMUDA TIRED-ANGLE
-# NATTANAN VIMUKTANAN M.205 NO.1
-# KRITTAPHAT TRAKULTHONGCHAROEN M.205 NO.12
-# THITIKAN SINPRASONG M.205 NO.15
+# NATTANAN VIMUKTANAN
+# KRITTAPHAT TRAKULTHONGCHAROEN
+# THITIKAN SINPRASONG
