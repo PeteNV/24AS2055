@@ -4,6 +4,7 @@ import json
 from linebot import LineBotApi
 from linebot.models import ImageMessage, TextSendMessage
 
+
 # Function to detect black color using Imagga's Color Extraction API
 def detect_black_color(image_url, api_key, api_secret):
     url = "https://api.imagga.com/v2/colors"
@@ -15,6 +16,7 @@ def detect_black_color(image_url, api_key, api_secret):
             return True
     return False
 
+
 # Function to send the captured image to Line
 def send_image_to_line(image_path):
     # Upload the image to Line server and get the media ID
@@ -24,6 +26,7 @@ def send_image_to_line(image_path):
     # Check if the message was successfully sent
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
+
 
 # Set up the Line Bot API
 line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
@@ -89,8 +92,9 @@ while True:
 video_capture.release()
 cv2.destroyAllWindows()
 
+# THIS CODE IS THE PROPERTY OF THE BERMUDA TRIANGLE
+# NATTANAN VIMUKTANAN M.205 NO.1
+# KRITTAPHAT TRAKULHTONGCHAROEN M.205 NO.12
+# THITIKAN SINPRASONG M.205 NO.15
 
-#THIS CODE IS THE PROPERTY OF THE BERMUDA TRIANGLE
-#NATTANAN VIMUKTANAN M.205 NO.1
-#KRITTAPHAT TRAKULHTONGCHAROEN M.205 NO.12
-#THITIKAN SINPRASONG M.205 NO.15
+# PLEASE USE THE SOFTWARE RESPONSIBLY
