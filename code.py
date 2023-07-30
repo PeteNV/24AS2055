@@ -54,18 +54,12 @@ while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
 
-    # Convert the frame to grayscale
-    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    # Apply Gaussian blur to reduce noise and improve motion detection
-    gray_frame = cv2.GaussianBlur(gray_frame, (21, 21), 0)
-
     if prev_frame is None:
-        prev_frame = gray_frame
+        prev_frame = frame
         continue
 
     # Calculate the absolute difference between the current frame and the previous frame
-    frame_delta = cv2.absdiff(prev_frame, gray_frame)
+    frame_delta = cv2.absdiff(prev_frame, frame)
     thresh = cv2.threshold(frame_delta, 25, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
 
@@ -73,7 +67,7 @@ while True:
     contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Reset motion detection for the next frame
-    prev_frame = gray_frame
+    prev_frame = frame
 
     # Check if there are any moving objects (suspicious person)
     if len(contours) > 0:
@@ -114,6 +108,6 @@ cv2.destroyAllWindows()
 
 
 # THIS CODE IS THE PROPERTY OF THE BERMUDA TIRED-ANGLE
-# NATTANAN V. No.1
-# KRITTAPHAT T. No.12
-# THITIKAN S. No. 15
+# NATTANAN V.
+# KRITTAPHAT T.
+# THITIKAN S.
