@@ -5,7 +5,6 @@ import time
 from linebot import LineBotApi
 from linebot.models import ImageMessage, TextSendMessage
 
-
 # Function to upload the image to Imgur and get the URL
 def upload_image_to_imgur(image_path, client_id):
     url = "https://api.imgur.com/3/upload"
@@ -16,7 +15,6 @@ def upload_image_to_imgur(image_path, client_id):
     if response.status_code == 200 and data["success"]:
         return data["data"]["link"]
     return None
-
 
 # Function to detect black color using Imagga's Color Extraction API
 def detect_black_color(image_url, api_key, api_secret):
@@ -29,7 +27,6 @@ def detect_black_color(image_url, api_key, api_secret):
             return True
     return False
 
-
 # Function to send the captured image to Line
 def send_image_to_line(image_url):
     # Upload the image to Line server and get the media ID
@@ -40,11 +37,8 @@ def send_image_to_line(image_url):
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
 
-
 # Set up the Line Bot API
-line_bot_api = LineBotApi(
-    "LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp"
-    "+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
+line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
 
 # Initialize the video capture object to access the live camera feed
 video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
@@ -92,8 +86,7 @@ while True:
 
         if image_url:
             # Detect black color in the captured frame
-            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866",
-                                                            "938370bda72e3cc671c3f293242ce75b")
+            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866", "938370bda72e3cc671c3f293242ce75b")
 
             # Display the frame with a bounding box around the suspicious person
             if suspicious_person_detected:
