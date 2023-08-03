@@ -47,7 +47,7 @@ video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
 prev_frame = None
 
 # Imgur API Client ID (Replace with your Imgur API client ID)
-IMGUR_CLIENT_ID = "6d5b8aa0a550a4d"
+IMGUR_CLIENT_ID = "YOUR_IMGUR_CLIENT_ID"
 
 # Main detection loop
 while True:
@@ -60,7 +60,8 @@ while True:
 
     # Calculate the absolute difference between the current frame and the previous frame
     frame_delta = cv2.absdiff(prev_frame, frame)
-    thresh = cv2.threshold(frame_delta, 25, 255, cv2.THRESH_BINARY)[1]
+    gray_frame = cv2.cvtColor(frame_delta, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+    thresh = cv2.threshold(gray_frame, 25, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
 
     # Find contours of moving objects
@@ -80,7 +81,7 @@ while True:
 
         if image_url:
             # Detect black color in the captured frame
-            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866", "938370bda72e3cc671c3f293242ce75b")
+            suspicious_person_detected = detect_black_color(image_url, "YOUR_IMAGGA_API_KEY", "YOUR_IMAGGA_API_SECRET")
 
             # Display the frame with a bounding box around the suspicious person
             if suspicious_person_detected:
@@ -105,9 +106,3 @@ while True:
 # Release the video capture object and close the windows
 video_capture.release()
 cv2.destroyAllWindows()
-
-
-# THIS CODE IS THE PROPERTY OF THE BERMUDA TIRED-ANGLE
-# NATTANAN V.
-# KRITTAPHAT T.
-# THITIKAN S.
