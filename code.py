@@ -2,8 +2,10 @@ import cv2
 import requests
 import json
 import time
-from linebot import LineBotApi
+import warnings
+from linebot import LineBotApi, LineBotSdkDeprecatedIn30
 from linebot.models import ImageMessage, TextSendMessage
+
 
 # Function to upload the image to Imgur and get the URL
 def upload_image_to_imgur(image_path, client_id):
@@ -16,16 +18,24 @@ def upload_image_to_imgur(image_path, client_id):
         return data["data"]["link"]
     return None
 
+
 # Function to detect black color using Imagga's Color Extraction API
 def detect_black_color(image_url, api_key, api_secret):
     url = "https://api.imagga.com/v2/colors"
     response = requests.get(url, params={"image_url": image_url}, auth=(api_key, api_secret))
     data = json.loads(response.text)
-    colors = data["result"]["colors"]
+    print(data)  # Print the response to examine its structure
+
+    colors = data["result"]["colors"]["image_colors"]
     for color in colors:
-        if color["closest_palette_color"] == "black":
+        color_name = color["html_code"]
+        if color_name == "#000000":  # Check if the color is black (#000000)
             return True
     return False
+
+
+
+
 
 # Function to send the captured image to Line
 def send_image_to_line(image_url):
@@ -37,8 +47,14 @@ def send_image_to_line(image_url):
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
 
+
+# Suppress LineBotSdkDeprecatedIn30 warning
+warnings.filterwarnings("ignore", category=LineBotSdkDeprecatedIn30)
+
 # Set up the Line Bot API
-line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
+line_bot_api = LineBotApi(
+    "LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp"
+    "+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
 
 # Initialize the video capture object to access the live camera feed
 video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
@@ -47,7 +63,7 @@ video_capture = cv2.VideoCapture(0)  # Use '0' for the default camera
 prev_frame = None
 
 # Imgur API Client ID (Replace with your Imgur API client ID)
-IMGUR_CLIENT_ID = "YOUR_IMGUR_CLIENT_ID"
+IMGUR_CLIENT_ID = "6d5b8aa0a550a4d"
 
 # Main detection loop
 while True:
@@ -60,12 +76,14 @@ while True:
 
     # Calculate the absolute difference between the current frame and the previous frame
     frame_delta = cv2.absdiff(prev_frame, frame)
-    gray_frame = cv2.cvtColor(frame_delta, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
-    thresh = cv2.threshold(gray_frame, 25, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(frame_delta, 25, 255, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
 
+    # Convert thresh image to grayscale
+    gray_thresh = cv2.cvtColor(thresh, cv2.COLOR_BGR2GRAY)
+
     # Find contours of moving objects
-    contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(gray_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Reset motion detection for the next frame
     prev_frame = frame
@@ -81,7 +99,8 @@ while True:
 
         if image_url:
             # Detect black color in the captured frame
-            suspicious_person_detected = detect_black_color(image_url, "YOUR_IMAGGA_API_KEY", "YOUR_IMAGGA_API_SECRET")
+            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866",
+                                                            "938370bda72e3cc671c3f293242ce75b")
 
             # Display the frame with a bounding box around the suspicious person
             if suspicious_person_detected:
