@@ -13,9 +13,16 @@ def upload_image_to_imgur(image_path, client_id):
     headers = {"Authorization": f"Client-ID {client_id}"}
     files = {"image": open(image_path, "rb")}
     response = requests.post(url, headers=headers, files=files)
-    data = json.loads(response.text)
-    if response.status_code == 200 and data["success"]:
-        return data["data"]["link"]
+
+    try:
+        response_data = response.json()
+        if response.status_code == 200 and response_data["success"]:
+            return response_data["data"]["link"]
+        else:
+            print("Imgur API error:", response_data.get("data", {}).get("error"))
+    except Exception as e:
+        print("Error parsing Imgur API response:", e)
+
     return None
 
 
@@ -32,9 +39,6 @@ def detect_black_color(image_url, api_key, api_secret):
         if color_name == "#000000":  # Check if the color is black (#000000)
             return True
     return False
-
-
-
 
 
 # Function to send the captured image to Line
@@ -125,3 +129,8 @@ while True:
 # Release the video capture object and close the windows
 video_capture.release()
 cv2.destroyAllWindows()
+
+# THIS CODE IS THE PROPERTY OF THE BERMUDA EXTREMELY-TIRED-ANGLE
+# NATTANAN VIMUKTANAN M.205 NO.1
+# KRITTAPHAT TRAKULTHONGCHAROEN M.205 NO.12
+# THITIKAN SINPRASONG M.205 NO.15
