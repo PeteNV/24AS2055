@@ -16,8 +16,11 @@ def upload_image_to_imgur(image_path, client_id):
 
     try:
         response_data = response.json()
-        if response.status_code == 200 and response_data["success"]:
-            return response_data["data"]["link"]
+        print("Imgur API Response:", response_data)  # Print the full response data for debugging
+        if response.status_code == 200 and response_data.get("success"):
+            image_url = response_data["data"]["link"]
+            print("Image uploaded successfully:", image_url)
+            return image_url
         else:
             print("Imgur API error:", response_data.get("data", {}).get("error"))
     except Exception as e:
@@ -45,7 +48,7 @@ def detect_black_color(image_url, api_key, api_secret):
 def send_image_to_line(image_url):
     # Upload the image to Line server and get the media ID
     image_message = ImageMessage(original_content_url=image_url, preview_image_url=image_url)
-    response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)
+    response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)  # MAYBE CHANGE?
 
     # Check if the message was successfully sent
     if '200' not in str(response.status_code):
@@ -129,8 +132,3 @@ while True:
 # Release the video capture object and close the windows
 video_capture.release()
 cv2.destroyAllWindows()
-
-# THIS CODE IS THE PROPERTY OF THE BERMUDA EXTREMELY-TIRED-ANGLE
-# NATTANAN VIMUKTANAN M.205 NO. 1
-# KRITTPHAT TRAKULTHONGCHAROEN M.205 NO.12
-# THITIKAN SINPRASONG M.205 NO.15
