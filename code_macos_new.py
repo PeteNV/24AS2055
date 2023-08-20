@@ -7,6 +7,11 @@ import numpy as np
 from linebot import LineBotApi, LineBotSdkDeprecatedIn30
 from linebot.models import ImageMessage, TextSendMessage
 
+
+# Provide the absolute paths for weights and cfg files
+weights_path = "/Users/petev./PycharmProjects/Main/yolov3.weights"
+cfg_path = "/Users/petev./PycharmProjects/Main/yolov3.cfg"
+
 def upload_image_to_imgur(image_path, client_id):
     url = "https://api.imgur.com/3/upload"
     headers = {"Authorization": f"Client-ID {client_id}"}
@@ -27,10 +32,12 @@ def upload_image_to_imgur(image_path, client_id):
 
     return None
 
+
 def detect_black_color(image_url, api_key, api_secret):
     url = "https://api.imagga.com/v2/colors"
     response = requests.get(url, params={"image_url": image_url}, auth=(api_key, api_secret))
     data = json.loads(response.text)
+    print(data)
 
     colors = data["result"]["colors"]["image_colors"]
     for color in colors:
@@ -39,6 +46,7 @@ def detect_black_color(image_url, api_key, api_secret):
             return True
     return False
 
+
 def send_image_to_line(image_url):
     image_message = ImageMessage(original_content_url=image_url, preview_image_url=image_url)
     response = line_bot_api.push_message("USER_ID", image_message)  # Replace with the user's ID
@@ -46,11 +54,18 @@ def send_image_to_line(image_url):
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
 
+
 warnings.filterwarnings("ignore", category=LineBotSdkDeprecatedIn30)
 
-line_bot_api = LineBotApi("LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
+line_bot_api = LineBotApi(
+    "LbSqSqaJ3HPNaDNGt1Nsed3SBupWtURIgeCdMcA/4oH3xMODM0NmUrz5W105tI6MBIs9jlGBLBCgoHDLQK3Gh640qp"
+    "+Y6aahu37S4eRsUBkQWKPfrJL/LMWiB34F8iXdIbLLRb+107Q8LFHN0+fl3AdB04t89/1O/w1cDnyilFU=")
 
-net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+try:
+    net = cv2.dnn.readNet(cfg_path, weights_path)
+except cv2.error as e:
+    print("Error reading YOLO configuration file:")
+    print(e)
 
 with open("coco.names", "r") as f:
     classes = f.read().strip().split("\n")
@@ -83,12 +98,13 @@ while True:
         image_url = upload_image_to_imgur(image_path, "6d5b8aa0a550a4d")
 
         if image_url:
-            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866", "938370bda72e3cc671c3f293242ce75b")
+            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866",
+                                                            "938370bda72e3cc671c3f293242ce75b")
 
             if suspicious_person_detected:
                 cv2.rectangle(frame, (0, 0), (frame.shape[1], frame.shape[0]), (0, 0, 255), 3)
 
-                blob = cv2.dnn.blobFromImage(frame, scalefactor=1/255.0, size=(416, 416), swapRB=True, crop=False)
+                blob = cv2.dnn.blobFromImage(frame, scalefactor=1 / 255.0, size=(416, 416), swapRB=True, crop=False)
                 net.setInput(blob)
                 layer_names = net.getUnconnectedOutLayersNames()
                 detections = net.forward(layer_names)
@@ -111,7 +127,8 @@ while True:
                             y = int(center_y - height / 2)
 
                             cv2.rectangle(frame, (x, y), (x + width, y + height), (0, 255, 0), 2)
-                            cv2.putText(frame, classes[class_id], (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                            cv2.putText(frame, classes[class_id], (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                                        (0, 255, 0), 2)
 
                 send_image_to_line(image_url)
 
