@@ -2,6 +2,7 @@ import cv2
 import requests
 import json
 import time
+import warnings
 import numpy as np
 from linebot import LineBotApi, LineBotSdkDeprecatedIn30
 from linebot.models import ImageMessage, TextSendMessage
