@@ -14,8 +14,10 @@ def upload_image_to_imgur(image_path, client_id):
 
     try:
         response_data = response.json()
+        print("Imgur API Response:", response_data)  # Print the full response data for debugging
         if response.status_code == 200 and response_data.get("success"):
             image_url = response_data["data"]["link"]
+            print("Image uploaded successfully:", image_url)
             return image_url
         else:
             print("Imgur API error:", response_data.get("data", {}).get("error"))
