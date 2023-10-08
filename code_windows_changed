@@ -37,12 +37,12 @@ def detect_dark_color(image_url, api_key, api_secret):
     data = json.loads(response.text)
     print(data)
 
-    dark_colors = data["result"]["colors"]["image_colors"]
-    for dark_color in dark_colors:
-        dark_color_name = dark_color["html_code"]
-        if dark_color_name == "#000000" or dark_color_name == "#1e1e1e" or dark_color_name == "#2a2a2a" or dark_color_name == "#333333":
-            return True
-    return False
+for dark_color in dark_colors:
+    brightness = dark_color["brightness"]
+    if brightness <= 128:
+        return True
+return False
+
 
 def send_image_to_line(image_url):
     image_message = ImageMessage(original_content_url=image_url, preview_image_url=image_url)
