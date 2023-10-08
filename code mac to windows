@@ -8,9 +8,10 @@ from linebot import LineBotApi, LineBotSdkDeprecatedIn30
 from linebot.models import ImageMessage, TextSendMessage
 
 # Provide the absolute paths for weights and cfg files
-weights_path = "/Users/petev./PycharmProjects/Main/yolov3.weights"
-cfg_path = "/Users/petev./PycharmProjects/Main/yolov3.cfg"
+weights_path = "C:\death destroyer of worlds\yolov3.weights"
+cfg_path = "C:\death destroyer of worlds\yolov3.cfg"
 
+dark_colors = []
 
 def upload_image_to_imgur(image_path, client_id):
     url = "https://api.imgur.com/3/upload"
@@ -32,29 +33,26 @@ def upload_image_to_imgur(image_path, client_id):
 
     return None
 
-
-def detect_black_color(image_url, api_key, api_secret):
+def detect_dark_color(image_url, api_key, api_secret):
     url = "https://api.imagga.com/v2/colors"
     response = requests.get(url, params={"image_url": image_url}, auth=(api_key, api_secret))
     data = json.loads(response.text)
     print(data)
 
-    colors = data["result"]["colors"]["image_colors"]
-    for color in colors:
-        color_name = color["html_code"]
-        if color_name == "#000000":
+def check_brightness(dark_colors):
+    for dark_color in dark_colors:
+        brightness = dark_color["brightness"]
+        if brightness <= 128:
             return True
     return False
 
 
 def send_image_to_line(image_url):
     image_message = ImageMessage(original_content_url=image_url, preview_image_url=image_url)
-    response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)  # Replace with the
-    # user's ID
+    response = line_bot_api.push_message("U0374fd264aeadd7f483dff6ed8e568e7", image_message)  # Replace with the user's ID
 
     if '200' not in str(response.status_code):
         print('Failed to send image to Line.')
-
 
 warnings.filterwarnings("ignore", category=LineBotSdkDeprecatedIn30)
 
@@ -99,7 +97,7 @@ while True:
         image_url = upload_image_to_imgur(image_path, "6d5b8aa0a550a4d")
 
         if image_url:
-            suspicious_person_detected = detect_black_color(image_url, "acc_0d4632fd3eb3866",
+            suspicious_person_detected = detect_dark_color(image_url, "acc_0d4632fd3eb3866",
                                                             "938370bda72e3cc671c3f293242ce75b")
 
             if suspicious_person_detected:
@@ -139,5 +137,6 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 video_capture.release()
 cv2.destroyAllWindows()
