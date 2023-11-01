@@ -158,10 +158,13 @@ while True:
                             x = int(center_x - width / 2)
                             y = int(center_y - height / 2)
 
-                            if classes[class_id] == 'person':
-                            # Draw bounding box and label only if the detected object is a person
-                                cv2.rectangle(frame, (x, y), (x + width, y + height), (0, 255, 0), 2)
-                                cv2.putText(frame, 'Person', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                            detected_class = classes[class_id]
+
+                            if detected_class in ['person', 'knife']:
+                                # Draw bounding box and label for "person" and "knife"
+                                color = (0, 255, 0) if detected_class == 'person' else (0, 0, 255)
+                                cv2.rectangle(frame, (x, y), (x + width, y + height), color, 2)
+                                cv2.putText(frame, detected_class, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
                 send_image_to_line(image_url)
 
