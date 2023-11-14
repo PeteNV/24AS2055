@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
 
 # Description
-Welcome to 24AS2055.
+Welcome to 23AS2055. This a fun school project and will soon be participated in the "Computer Project Competition" in the following year of 2024. 
 
 
 # Project Name
@@ -20,10 +20,14 @@ Experimenting on the Accuracy of an Image Recognition System if is in a Camera, 
 - [Contact](#contact)
 
 # Installations
-[]
+Install a Python supported IDE (The researchers reccommend the latest version of PyCharm.)
+Create a new Python file in the IDE
+Use the code provided and fine-tune as you wish. Please read the attached license.
+
+
 
 # Usage
-Simply run the screensaver.py script, and the screensaver will start displaying the transition between the two ASCII images when your computer is idle. To stop the screensaver, move the mouse or press any key.
+
 
 # Features
 []
