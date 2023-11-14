@@ -3,7 +3,7 @@
 
 # Description
 Welcome to 24AS2055.
-This repository is the property of the "Bermuda Triangle".
+
 
 # Project Name
 Experimenting on the Accuracy of an Image Recognition System if is in a Camera, using Line-Bot Application and Python.
