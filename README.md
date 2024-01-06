@@ -1,8 +1,8 @@
-# 23AS2055
+# 24AS2055
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
 
 # Description
-Welcome to 23AS2055. This a fun school project and will soon be participated in the "Computer Project Competition" in the following year of 2024. 
+Welcome to 24AS2055. This a fun school project and will soon be participated in the "Computer Project Competition" in the following year of 2024. 
 
 
 # Project Name
