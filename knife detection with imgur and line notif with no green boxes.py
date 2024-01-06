@@ -1,4 +1,3 @@
-# Dear Tonkla and Pete in the future
 # When we wrote this code, only us and God knew what it was.
 # Now, only God knows
 # So if you are done trying to optimize this code (and failed),
