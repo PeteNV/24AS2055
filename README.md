@@ -13,10 +13,8 @@ Experimenting on the Accuracy of an Image Recognition System using Line-Bot Appl
 - [Installation](#installations (Phase 2 - Hardware construction))
 - [Usage](#usage)
 - [Features](#features)
-- [Screenshots](#screenshots)
-- [How to Contribute](#how-to-contribute)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
+- [Acknowledgments](#Acknowledgments)
 - [Contact](#contact)
 
 # Installations (Phase 2 - Hardware construction)
