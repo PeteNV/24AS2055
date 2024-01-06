@@ -43,7 +43,7 @@ Step 2: Run the code via a desired coding environment
 Given the commending results, it is advised that property owners use this program as a supplementary security. Because of the program’s easy implementation, users can be able to install it on their personal computers, it’s also very easy to install due to PyCharm’s gregarious interface which assists in the installation part. By amalgamating this program into the security system, users install an extra protection into their homes, their properties which can warn them about crimes before it happens.
 
 # Features
-
+If detect knife, send line bot notifs
 # License
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
 
