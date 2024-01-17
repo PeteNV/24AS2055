@@ -1,11 +1,3 @@
-# When we wrote this code, only us and God knew what it was.
-# Now, only God knows
-# So if you are done trying to optimize this code (and failed),
-# please increment the following counter as a warning
-
-# TotalHoursWastedHere = 13 Hours
-
-
 import cv2
 import numpy as np
 from linebot import LineBotApi, LineBotSdkDeprecatedIn30
