@@ -1,53 +1,33 @@
-# 24AS2055
+# SK-2024-Computer-Project-Competition
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
 
-# Description
-Welcome to 24AS2055. This a fun school project and will soon be participated in the "Computer Project Competition" in the following year of 2024. 
+## Acknowledgement
+
+During processes of research, the researchers have faced their challenges and difficulty, their advisors and friends have immensely supported them through the whole process. Without Mrs. Awasthi and Mr. Raborar's supervision and feedback, the research wouldn't have been successful. Furthermore, Krittaphat T. and Thitikan S. have provided them with extreme support to make the research a success. 
+
+The researchers would like to show their utmost sincere appreciation to the four.
+
+## Introduction
 
 
-# Project Name
-Experimenting on the Accuracy of an Image Recognition System using Line-Bot Application and Python.
+## Installation
+To set up this project, clone the repository and install the required dependencies:
 
-# Table of Contents
+```bash
+git clone https://github.com/yourusername/SK-2024-Computer-Project-Competition.git
+cd SK-2024-Computer-Project-Competition
+pip install -r requirements.txt
+```
 
-- [Installation](#installations (Phase 2 - Hardware construction))
-- [Usage](#usage)
-- [Features](#features)
-- [License](#license)
-- [Acknowledgments](#Acknowledgments)
-- [Contact](#contact)
+Moreover, please make sure that you have downloaded YOLOv3 weight and configurations file at https://pjreddie.com/darknet/yolo and ensure that File Paths (yolov3.weights, yolov3.configs, and coco.names), LINE and Imgur API keys and are set/configured correctly.
 
-# Installations (Phase 2 - Hardware construction)
+To set up Line API, visit: https://developers.line.biz/console
+To set up Imgur API, visit: https://apidocs.imgur.com
+## Usage
+To run the project:
+```
+python src/main.py
+```
+## License
 
-Step 1: Install necessary dependencies by creating requirements.txt in the code’s folder
-a.	Put the following words in the text file
-i.	opencv-python
-requests
-Line-bot-sdk
-
-Step 2: Open the operating system’s terminal
-a.	Type the following words in the terminal
-i.	pip install -r requirements.txt
-Step 3: Install YOLOv3 files and put them in the designated folder
-a.	Go to the following website and download the necessary files
-i.	https://pjreddie.com/darknet/yolo 
-
-# Installation (Phase 3 -  Running for the program)
-Step 1: Use the codes from Phase 1 and procedures from Phase 2 in order to make the image-recognition system and the notification system work.
-Step 2: Run the code via a desired coding environment
-
-
-# Usage
-Given the commending results, it is advised that property owners use this program as a supplementary security. Because of the program’s easy implementation, users can be able to install it on their personal computers, it’s also very easy to install due to PyCharm’s gregarious interface which assists in the installation part. By amalgamating this program into the security system, users install an extra protection into their homes, their properties which can warn them about crimes before it happens.
-
-# Features
-If detect knife, send line bot notifs
-# License
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
-
-# Acknowledgements
-Thanks to Mr. Trust B. and Mr. Raborar for providing mental support that powers the codes in this repository.
-
-
-# Contact
-If you have any questions or feedback, feel free to contact us at PeteNV on Discord.
+This project is licensed under the MIT License - see the LICENSE file for further details.
