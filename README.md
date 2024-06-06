@@ -1,4 +1,4 @@
-# SK-2024-Computer-Project-Competition
+# 24AS2055
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/PeteNV/24AS2055/blob/main/LICENSE)
 
 ## Acknowledgement
