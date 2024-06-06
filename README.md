@@ -14,8 +14,8 @@ The researchers would like to show their utmost sincere appreciation to the four
 To set up this project, clone the repository and install the required dependencies:
 
 ```bash
-git clone https://github.com/yourusername/SK-2024-Computer-Project-Competition.git
-cd SK-2024-Computer-Project-Competition
+git clone [https://github.com/PeteNV/24AS2055.git]
+cd 24AS2055
 pip install -r requirements.txt
 ```
 
